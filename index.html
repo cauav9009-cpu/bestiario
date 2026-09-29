@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bestiário Antigo</title>
+
+<style>
+
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(80, 50, 20, .12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(60, 40, 20, .15),
+            transparent 30%
+        ),
+        #1b160f;
+
+    color: #302417;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   TEXTURA DO PAPEL
+========================================================= */
+
+.pagina {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding: 50px 7% 100px;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(80, 50, 20, .08) 0,
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 60%,
+            rgba(100, 60, 20, .08) 0,
+            transparent 35%
+        ),
+
+        #d7c49c;
+
+    box-shadow:
+
+        0 0 35px rgba(0,0,0,.7),
+
+        inset 0 0 80px rgba(70,40,10,.2);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BORDAS DO CADERNO
+========================================================= */
+
+.pagina::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 15px;
+
+    border: 2px solid rgba(70,45,20,.45);
+
+    pointer-events: none;
+
+}
+
+.pagina::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 23px;
+
+    border: 1px dashed rgba(80,50,20,.25);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+header {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    padding-bottom: 35px;
+
+    border-bottom: 2px solid #675035;
+
+}
+
+header h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(45px, 8vw, 95px);
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    color: #342617;
+
+    text-shadow:
+        1px 1px 0 #b8a47d;
+
+}
+
+header p {
+
+    margin-top: 8px;
+
+    color: #6b5638;
+
+    font-style: italic;
+
+}
+
+
+/* =========================================================
+   PEQUENA NOTA NO TOPO
+========================================================= */
+
+.nota-topo {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    color: #725d3d;
+
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+.controles {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin: 30px 0;
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+input,
+select {
+
+    background: #cdb98d;
+
+    color: #352719;
+
+    border: 1px solid #705638;
+
+    padding: 12px;
+
+    font-family: Georgia, serif;
+
+    outline: none;
+
+}
+
+input::placeholder {
+
+    color: #806b49;
+
+}
+
+input:focus,
+select:focus {
+
+    border-color: #49351f;
+
+    box-shadow:
+        inset 0 0 5px rgba(60,40,20,.15);
+
+}
+
+#pesquisa {
+
+    flex: 1;
+
+    min-width: 220px;
+
+}
+
+
+/* =========================================================
+   LISTA
+========================================================= */
+
+.bestiario {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(230px, 1fr)
+        );
+
+    gap: 22px;
+
+}
+
+
+/* =========================================================
+   CARTÃO DE CRIATURA
+========================================================= */
+
+.criatura-card {
+
+    min-height: 180px;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.08),
+            rgba(90,60,20,.04)
+        ),
+        #cdb98d;
+
+    border:
+
+        1px solid #705638;
+
+    box-shadow:
+
+        2px 3px 0 rgba(60,40,20,.12),
+
+        inset 0 0 20px rgba(80,50,20,.08);
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition: .2s;
+
+    transform: rotate(
+        var(--rotacao)
+    );
+
+}
+
+
+/* Pequena variação nas páginas */
+
+.criatura-card:nth-child(3n) {
+
+    --rotacao: -0.4deg;
+
+}
+
+.criatura-card:nth-child(3n+1) {
+
+    --rotacao: 0.3deg;
+
+}
+
+.criatura-card:nth-child(3n+2) {
+
+    --rotacao: -0.2deg;
+
+}
+
+
+.criatura-card:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(0deg);
+
+    box-shadow:
+
+        4px 7px 10px rgba(30,20,10,.25);
+
+}
+
+
+/* =========================================================
+   ALFINETE / MARCA
+========================================================= */
+
+.criatura-card::before {
+
+    content: "✦";
+
+    position: absolute;
+
+    top: 8px;
+
+    right: 12px;
+
+    color: #705638;
+
+    opacity: .7;
+
+}
+
+
+/* =========================================================
+   TEXTO DO CARD
+========================================================= */
+
+.numero {
+
+    font-size: 12px;
+
+    color: #796342;
+
+    text-transform: uppercase;
+
+}
+
+.nome-criatura {
+
+    margin-top: 35px;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    color: #342719;
+
+}
+
+.tipo {
+
+    margin-top: 12px;
+
+    color: #765f3e;
+
+    font-size: 13px;
+
+    font-style: italic;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999;
+
+    background:
+        rgba(20,14,8,.82);
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+}
+
+.modal.ativo {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   FOLHA DA CRIATURA
+========================================================= */
+
+.modal-conteudo {
+
+    max-width: 900px;
+
+    margin: 20px auto;
+
+    padding: 45px;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(100,70,30,.07),
+            transparent 30%
+        ),
+
+        #d9c69d;
+
+    border:
+
+        2px solid #665037;
+
+    box-shadow:
+
+        0 10px 40px rgba(0,0,0,.55),
+
+        inset 0 0 70px rgba(70,40,10,.18);
+
+    position: relative;
+
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+.fechar {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 20px;
+
+    font-size: 30px;
+
+    cursor: pointer;
+
+    color: #70583a;
+
+}
+
+.fechar:hover {
+
+    color: #2f2114;
+
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.modal-titulo {
+
+    margin: 0;
+
+    font-size:
+        clamp(35px, 6vw, 65px);
+
+    color: #342719;
+
+    text-align: center;
+
+}
+
+.modal-subtitulo {
+
+    text-align: center;
+
+    color: #776044;
+
+    margin-bottom: 35px;
+
+    font-style: italic;
+
+}
+
+
+/* =========================================================
+   LINHA DECORATIVA
+========================================================= */
+
+.divisoria {
+
+    text-align: center;
+
+    color: #705638;
+
+    margin: 15px 0 25px;
+
+    letter-spacing: 8px;
+
+}
+
+
+/* =========================================================
+   INFORMAÇÕES
+========================================================= */
+
+.informacoes {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(140px, 1fr)
+        );
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+
+}
+
+.info {
+
+    padding: 15px;
+
+    border:
+
+        1px solid #806545;
+
+    background:
+        rgba(120,90,45,.08);
+
+    text-align: center;
+
+}
+
+.info span {
+
+    display: block;
+
+    font-size: 11px;
+
+    color: #786044;
+
+    text-transform: uppercase;
+
+    margin-bottom: 7px;
+
+}
+
+.info strong {
+
+    color: #38291a;
+
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.secao {
+
+    border-top:
+
+        1px solid #806545;
+
+    padding: 22px 0;
+
+}
+
+.secao h3 {
+
+    margin-top: 0;
+
+    color: #604b31;
+
+    letter-spacing: 2px;
+
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   BOTÃO BIOGRAFIA
+========================================================= */
+
+.botao-biografia {
+
+    width: 100%;
+
+    padding: 16px;
+
+    background:
+        rgba(100,70,30,.08);
+
+    border:
+
+        1px solid #796044;
+
+    color: #3b2b1b;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+}
+
+.botao-biografia:hover {
+
+    background:
+        rgba(100,70,30,.16);
+
+}
+
+
+/* =========================================================
+   BIOGRAFIA
+========================================================= */
+
+.biografia-conteudo {
+
+    display: none;
+
+    margin-top: 18px;
+
+    padding: 25px;
+
+    border:
+
+        1px solid #806545;
+
+    background:
+
+        rgba(255,255,255,.08);
+
+}
+
+.biografia-conteudo.aberto {
+
+    display: block;
+
+    animation:
+        aparecer .3s ease;
+
+}
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGEM
+========================================================= */
+
+.imagem-biografia {
+
+    width: 100%;
+
+    max-height: 520px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin-bottom: 25px;
+
+    border:
+
+        2px solid #705638;
+
+    background: #bca77b;
+
+}
+
+.sem-imagem {
+
+    height: 260px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+
+        2px dashed #806545;
+
+    color: #806545;
+
+    font-size: 60px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.descricao {
+
+    color: #443322;
+
+    line-height: 1.9;
+
+    font-size: 16px;
+
+}
+
+
+/* =========================================================
+   REGIÕES
+========================================================= */
+
+.regiao-box {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background:
+        rgba(100,70,30,.08);
+
+    border:
+
+        1px solid #806545;
+
+    position: relative;
+
+}
+
+
+/* Pequena marca de mapa */
+
+.regiao-box::before {
+
+    content: "✧";
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 10px;
+
+    color: #806545;
+
+}
+
+
+.regiao-titulo {
+
+    color: #604b31;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+
+    text-transform: uppercase;
+
+}
+
+.regiao-texto {
+
+    color: #443322;
+
+    line-height: 1.7;
+
+    margin: 0;
+
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    background: transparent;
+
+    border: none;
+
+}
+
+
+/* =========================================================
+   NOTA
+========================================================= */
+
+.nota {
+
+    color: #806b4a;
+
+    font-size: 11px;
+
+    margin-top: 8px;
+
+    font-style: italic;
+
+}
+
+
+/* =========================================================
+   OBSERVAÇÕES / ATAQUES
+========================================================= */
+
+.observacoes,
+.ataques {
+
+    color: #51402c;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   MARCA DE PÁGINA
+========================================================= */
+
+.numero-pagina {
+
+    position: absolute;
+
+    bottom: 25px;
+
+    right: 35px;
+
+    color: #806545;
+
+    font-size: 12px;
+
+    font-style: italic;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .pagina {
+
+        width: 100%;
+
+        padding:
+            35px 7% 80px;
+
+    }
+
+    .modal {
+
+        padding: 10px;
+
+    }
+
+    .modal-conteudo {
+
+        padding: 25px 20px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="pagina">
+
+
+<header>
+
+    <h1>BESTIÁRIO</h1>
+
+    <p>
+        Catálogo de criaturas, entidades e seres desconhecidos
+    </p>
+
+</header>
+
+
+<div class="nota-topo">
+
+    "Nem tudo que vive deseja ser encontrado."
+
+</div>
+
+
+<!-- =====================================================
+     PESQUISA
+===================================================== -->
+
+<div class="controles">
+
+    <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar nos registros..."
+        oninput="filtrarCriaturas()"
+    >
+
+
+    <select
+        id="filtro"
+        onchange="filtrarCriaturas()"
+    >
+
+        <option value="todas">
+            Todas as criaturas
+        </option>
+
+        <option value="conhecida">
+            Registros conhecidos
+        </option>
+
+        <option value="desconhecida">
+            Registros desconhecidos
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- =====================================================
+     BESTIÁRIO
+===================================================== -->
+
+<main
+    class="bestiario"
+    id="bestiario"
+></main>
+
+
+</div>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="modal"
+    onclick="fecharModalFora(event)"
+>
+
+
+<div
+    class="modal-conteudo"
+    onclick="event.stopPropagation()"
+>
+
+
+<div
+    class="fechar"
+    onclick="fecharModal()"
+>
+    ×
+</div>
+
+
+<h2
+    class="modal-titulo"
+    id="modalNome"
+>
+    ???
+</h2>
+
+
+<div
+    class="modal-subtitulo"
+    id="modalNumero"
+>
+    REGISTRO
+</div>
+
+
+<div class="divisoria">
+    ─── ✦ ───
+</div>
+
+
+<!-- =====================================================
+     INFORMAÇÕES
+===================================================== -->
+
+<div class="informacoes">
+
+
+<div class="info">
+
+    <span>
+        Nível de ameaça
+    </span>
+
+    <strong id="modalAmeaca">
+        ???
+    </strong>
+
+</div>
+
+
+<div class="info">
+
+    <span>
+        Tipo
+    </span>
+
+    <strong id="modalTipo">
+        ???
+    </strong>
+
+</div>
+
+
+<div class="info">
+
+    <span>
+        Vida
+    </span>
+
+    <strong id="modalVida">
+        ???
+    </strong>
+
+</div>
+
+
+<div class="info">
+
+    <span>
+        Nível
+    </span>
+
+    <strong id="modalNivel">
+        ???
+    </strong>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     BIOGRAFIA
+===================================================== -->
+
+<div class="secao">
+
+
+<button
+    class="botao-biografia"
+    id="botaoBiografia"
+    onclick="alternarBiografia()"
+>
+
+    ▸ BIOGRAFIA / DESCRIÇÃO
+
+</button>
+
+
+<div
+    class="biografia-conteudo"
+    id="biografiaConteudo"
+>
+
+
+<!-- IMAGEM -->
+
+<div id="imagemContainer">
+
+    <div class="sem-imagem">
+        ?
+    </div>
+
+</div>
+
+
+<!-- DESCRIÇÃO -->
+
+<p
+    class="descricao"
+    id="modalDescricao"
+>
+    ???
+</p>
+
+
+<!-- REGIÕES -->
+
+<div class="regiao-box">
+
+
+<div class="regiao-titulo">
+
+    Regiões onde a criatura se encontra
+
+</div>
+
+
+<p
+    class="regiao-texto"
+    id="modalRegioes"
+>
+    ???
+</p>
+
+
+</div>
+
+
+<!-- UPLOAD -->
+
+<input
+    class="upload"
+    type="file"
+    accept="image/*"
+    id="uploadImagem"
+    onchange="adicionarImagem(event)"
+>
+
+
+<div class="nota">
+
+    Adicione ou substitua a imagem
+    desta criatura. O registro será
+    salvo neste navegador.
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     OBSERVAÇÕES
+===================================================== -->
+
+<div class="secao">
+
+
+<h3>
+    Observações do pesquisador
+</h3>
+
+
+<p
+    class="observacoes"
+    id="modalObservacoes"
+>
+    ???
+</p>
+
+
+</div>
+
+
+<!-- =====================================================
+     ATAQUES
+===================================================== -->
+
+<div class="secao">
+
+
+<h3>
+    Ataques / Habilidades
+</h3>
+
+
+<p
+    class="ataques"
+    id="modalAtaques"
+>
+    ???
+</p>
+
+
+</div>
+
+
+<div class="numero-pagina">
+
+    Registro nº <span id="numeroPagina">001</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   BANCO DE CRIATURAS
+========================================================= */
+
+const criaturas = [];
+
+
+/* =========================================================
+   CRIATURA 001
+========================================================= */
+
+criaturas.push({
+
+    id: 1,
+
+    nome: "Entidade de Tinta",
+
+    tipo: "Entidade",
+
+    ameaca: "*",
+
+    vida: "20",
+
+    nivel: "3",
+
+    imagem: "criaturas/criatura_001.jpg",
+
+    descricao:
+        "Uma criatura aparentemente formada por uma substância escura semelhante a tinta. Sua origem permanece desconhecida. O pesquisador responsável pelo primeiro registro não conseguiu determinar se a criatura possui uma forma física permanente.",
+
+    regioes:
+        "perto de pontos de corrupção ou locais com corpos em decomposição",
+
+    observacoes:
+        "O comportamento observado até agora não permite determinar sua verdadeira natureza.",
+
+    ataques:
+        "deformação de gosma"
+
+});
+
+
+/* =========================================================
+   CRIATURA 002
+========================================================= */
+
+criaturas.push({
+
+    id: 2,
+
+    nome: "Fera dos Muitos Olhos",
+
+    tipo: "Criatura",
+
+    ameaca: "**",
+
+    vida: "70",
+
+    nivel: "10",
+
+    imagem: "criaturas/criatura_002.jpg",
+
+    descricao:
+        "Uma criatura de aparência anormal coberta por múltiplos olhos. Não existem registros suficientes para determinar quantos deles são funcionais.",
+
+    regioes:
+        "florestas e locais de caça",
+
+    observacoes:
+        "A criatura aparenta perceber movimentos ao seu redor mesmo quando alguns de seus olhos estão fechados.",
+
+    ataques:
+        "???"
+
+});
+
+
+/* =========================================================
+   CRIATURA 003
+========================================================= */
+
+criaturas.push({
+
+    id: 3,
+
+    nome: "Pesadelo Carmesim",
+
+    tipo: "Entidade",
+
+    ameaca: "???",
+
+    vida: "???",
+
+    nivel: "???",
+
+    imagem: "criaturas/criatura_003.jpg",
+
+    descricao:
+        "Uma figura humanoide associada a uma coloração vermelha intensa. Pouco se sabe sobre sua origem ou sobre a razão de sua presença nos registros.",
+
+    regioes:
+        "???",
+
+    observacoes:
+        "Registro incompleto. Informações adicionais ainda precisam ser coletadas.",
+
+    ataques:
+        "???"
+
+});
+
+
+/* =========================================================
+   CRIATURA 004
+========================================================= */
+
+criaturas.push({
+
+    id: 4,
+
+    nome: "os nightmares",
+
+    tipo: "Criatura",
+
+    ameaca: "***",
+
+    vida: "20",
+
+    nivel: "1",
+
+    imagem: "criaturas/criatura_004.jpg",
+
+    descricao:
+        "Uma criatura de aparência serpentina envolta por sombras. Seu comportamento demostra que eles caçam em grupos sendo um grnade perigo.",
+
+    regioes:
+        "locais de pilares da corrupção e locais abandonados",
+
+    observacoes:
+        "A presença da criatura foi registrada apenas por um curto período.",
+
+    ataques:
+        "???"
+
+});
+
+
+/* =========================================================
+   CRIATURA 005
+========================================================= */
+
+criaturas.push({
+
+    id: 5,
+
+    nome: "Cervo Retorcido",
+
+    tipo: "Criatura",
+
+    ameaca: "nula",
+
+    vida: "50",
+
+    nivel: "7",
+
+    imagem: "criaturas/criatura_005.jpg",
+
+    descricao:
+        "Uma criatura semelhante a um cervo, porém apresentando alterações físicas que não correspondem a nenhum animal conhecido.foi percebido que eles são criaturas pacificas e que não demonstram perigo algum.",
+
+    regioes:
+        "florestas",
+
+    observacoes:
+        "A criatura não foi identificada em nenhum registro convencional.",
+
+    ataques:
+        "???"
+
+});
+
+
+/* =========================================================
+   REGISTROS DESCONHECIDOS
+========================================================= */
+
+for (
+    let i = 6;
+    i <= 120;
+    i++
+) {
+
+    criaturas.push({
+
+        id: i,
+
+        nome: "???",
+
+        tipo: "Desconhecido",
+
+        ameaca: "???",
+
+        vida: "???",
+
+        nivel: "???",
+
+        imagem: "",
+
+        descricao:
+            "Este registro ainda não possui informações suficientes. As páginas referentes a esta criatura permanecem incompletas.",
+
+        regioes:
+            "???",
+
+        observacoes:
+            "CRIATURA NÃO IDENTIFICADA.",
+
+        ataques:
+            "???"
+
+    });
+
+}
+
+
+/* =========================================================
+   CRIATURA ATUAL
+========================================================= */
+
+let criaturaAtual = null;
+
+
+/* =========================================================
+   RENDERIZAR BESTIÁRIO
+========================================================= */
+
+function renderizarBestiario(
+    lista = criaturas
+) {
+
+    const bestiario =
+        document.getElementById(
+            "bestiario"
+        );
+
+
+    bestiario.innerHTML = "";
+
+
+    lista.forEach(
+        criatura => {
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "criatura-card";
+
+
+        card.onclick =
+            function() {
+
+                abrirModal(
+                    criatura.id
+                );
+
+            };
+
+
+        card.innerHTML = `
+
+            <div class="numero">
+
+                Registro
+                ${String(
+                    criatura.id
+                ).padStart(3,"0")}
+
+            </div>
+
+
+            <div class="nome-criatura">
+
+                ${criatura.nome}
+
+            </div>
+
+
+            <div class="tipo">
+
+                ${criatura.tipo}
+
+            </div>
+
+        `;
+
+
+        bestiario.appendChild(
+            card
+        );
+
+
+    });
+
+}
+
+
+/* =========================================================
+   ABRIR REGISTRO
+========================================================= */
+
+function abrirModal(id) {
+
+
+    const criatura =
+        criaturas.find(
+            c => c.id === id
+        );
+
+
+    if (!criatura)
+        return;
+
+
+    criaturaAtual =
+        criatura;
+
+
+    document.getElementById(
+        "modalNome"
+    ).textContent =
+        criatura.nome;
+
+
+    document.getElementById(
+        "modalNumero"
+    ).textContent =
+
+        "Registro nº " +
+
+        String(
+            criatura.id
+        ).padStart(3,"0");
+
+
+    document.getElementById(
+        "numeroPagina"
+    ).textContent =
+
+        String(
+            criatura.id
+        ).padStart(3,"0");
+
+
+    document.getElementById(
+        "modalAmeaca"
+    ).textContent =
+        criatura.ameaca;
+
+
+    document.getElementById(
+        "modalTipo"
+    ).textContent =
+        criatura.tipo;
+
+
+    document.getElementById(
+        "modalVida"
+    ).textContent =
+        criatura.vida;
+
+
+    document.getElementById(
+        "modalNivel"
+    ).textContent =
+        criatura.nivel;
+
+
+    document.getElementById(
+        "modalDescricao"
+    ).textContent =
+        criatura.descricao;
+
+
+    document.getElementById(
+        "modalRegioes"
+    ).textContent =
+        criatura.regioes;
+
+
+    document.getElementById(
+        "modalObservacoes"
+    ).textContent =
+        criatura.observacoes;
+
+
+    document.getElementById(
+        "modalAtaques"
+    ).textContent =
+        criatura.ataques;
+
+
+    /* Fechar biografia */
+
+    const biografia =
+        document.getElementById(
+            "biografiaConteudo"
+        );
+
+
+    biografia.classList.remove(
+        "aberto"
+    );
+
+
+    document.getElementById(
+        "botaoBiografia"
+    ).textContent =
+
+        "▸ BIOGRAFIA / DESCRIÇÃO";
+
+
+    /* Atualizar imagem */
+
+    atualizarImagem(
+        criatura
+    );
+
+
+    document.getElementById(
+        "modal"
+    ).classList.add(
+        "ativo"
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR
+========================================================= */
+
+function fecharModal() {
+
+    document.getElementById(
+        "modal"
+    ).classList.remove(
+        "ativo"
+    );
+
+
+    criaturaAtual = null;
+
+}
+
+
+function fecharModalFora(
+    event
+) {
+
+    if (
+        event.target.id ===
+        "modal"
+    ) {
+
+        fecharModal();
+
+    }
+
+}
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            fecharModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ABRIR BIOGRAFIA
+========================================================= */
+
+function alternarBiografia() {
+
+
+    const conteudo =
+        document.getElementById(
+            "biografiaConteudo"
+        );
+
+
+    const botao =
+        document.getElementById(
+            "botaoBiografia"
+        );
+
+
+    conteudo.classList.toggle(
+        "aberto"
+    );
+
+
+    if (
+        conteudo.classList.contains(
+            "aberto"
+        )
+    ) {
+
+        botao.textContent =
+            "▾ BIOGRAFIA / DESCRIÇÃO";
+
+    } else {
+
+        botao.textContent =
+            "▸ BIOGRAFIA / DESCRIÇÃO";
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGEM
+========================================================= */
+
+function atualizarImagem(
+    criatura
+) {
+
+
+    const container =
+        document.getElementById(
+            "imagemContainer"
+        );
+
+
+    const imagemSalva =
+        localStorage.getItem(
+            "imagem_criatura_" +
+            criatura.id
+        );
+
+
+    const imagem =
+        imagemSalva ||
+        criatura.imagem;
+
+
+    if (imagem) {
+
+        container.innerHTML = `
+
+            <img
+
+                class="imagem-biografia"
+
+                src="${imagem}"
+
+                alt="${criatura.nome}"
+
+            >
+
+        `;
+
+    } else {
+
+        container.innerHTML = `
+
+            <div class="sem-imagem">
+
+                ?
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   ADICIONAR IMAGEM
+========================================================= */
+
+function adicionarImagem(
+    event
+) {
+
+
+    if (!criaturaAtual)
+        return;
+
+
+    const arquivo =
+        event.target.files[0];
+
+
+    if (!arquivo)
+        return;
+
+
+    if (
+        !arquivo.type.startsWith(
+            "image/"
+        )
+    ) {
+
+        alert(
+            "Selecione uma imagem válida."
+        );
+
+        return;
+
+    }
+
+
+    const leitor =
+        new FileReader();
+
+
+    leitor.onload =
+        function(e) {
+
+
+        try {
+
+
+            localStorage.setItem(
+
+                "imagem_criatura_" +
+                criaturaAtual.id,
+
+                e.target.result
+
+            );
+
+
+            atualizarImagem(
+                criaturaAtual
+            );
+
+
+        }
+
+        catch (erro) {
+
+
+            alert(
+
+                "Não foi possível salvar a imagem. Ela pode ser grande demais para o armazenamento do navegador."
+
+            );
+
+
+        }
+
+
+    };
+
+
+    leitor.readAsDataURL(
+        arquivo
+    );
+
+}
+
+
+/* =========================================================
+   PESQUISA E FILTRO
+========================================================= */
+
+function filtrarCriaturas() {
+
+
+    const pesquisa =
+        document.getElementById(
+            "pesquisa"
+        )
+        .value
+        .toLowerCase();
+
+
+    const filtro =
+        document.getElementById(
+            "filtro"
+        )
+        .value;
+
+
+    const resultado =
+        criaturas.filter(
+            criatura => {
+
+
+            const correspondePesquisa =
+
+                criatura.nome
+                    .toLowerCase()
+                    .includes(
+                        pesquisa
+                    );
+
+
+            let correspondeFiltro =
+                true;
+
+
+            if (
+                filtro ===
+                "conhecida"
+            ) {
+
+                correspondeFiltro =
+                    criatura.id <= 5;
+
+            }
+
+
+            if (
+                filtro ===
+                "desconhecida"
+            ) {
+
+                correspondeFiltro =
+                    criatura.id > 5;
+
+            }
+
+
+            return (
+
+                correspondePesquisa &&
+                correspondeFiltro
+
+            );
+
+
+        }
+    );
+
+
+    renderizarBestiario(
+        resultado
+    );
+
+}
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+renderizarBestiario();
+
+</script>
+
+
+</body>
+
+</html>
