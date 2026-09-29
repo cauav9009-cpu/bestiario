@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bestiário</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(100,70,30,.15), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(60,40,20,.15), transparent 30%),
+        #2b2117;
+
+    color: #302417;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+}
+
+
+/* =========================================
+   PÁGINA
+========================================= */
+
+.pagina {
+
+    width: 92%;
+    max-width: 1450px;
+
+    min-height: 100vh;
+
+    margin: 30px auto;
+
+    padding: 45px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(249,238,204,.97),
+            rgba(226,208,166,.97)
+        );
+
+    border: 1px solid #8b7048;
+
+    box-shadow:
+
+        0 0 0 8px rgba(60,40,20,.22),
+
+        0 15px 45px rgba(0,0,0,.5),
+
+        inset 0 0 60px rgba(80,50,20,.25);
+}
+
+
+/* textura */
+
+.pagina::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(70,45,20,.025),
+            rgba(70,45,20,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+header {
+
+    position: relative;
+
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+header h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(48px, 8vw, 100px);
+
+    letter-spacing: 8px;
+
+    text-transform: uppercase;
+
+    color: #382918;
+
+    text-shadow:
+        1px 1px 0 #b8a57e,
+        2px 2px 0 rgba(50,30,10,.2);
+}
+
+header p {
+
+    color: #6e5a3d;
+
+    font-style: italic;
+
+    font-size: 18px;
+}
+
+.linha {
+
+    width: 80%;
+
+    height: 1px;
+
+    margin: 22px auto;
+
+    background: #806544;
+
+    position: relative;
+}
+
+.linha::before,
+.linha::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    top: -12px;
+
+    color: #806544;
+}
+
+.linha::before {
+    left: -20px;
+}
+
+.linha::after {
+    right: -20px;
+}
+
+
+/* =========================================
+   CONTROLES
+========================================= */
+
+.controles {
+
+    position: relative;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.controles input,
+.controles select {
+
+    padding: 12px 15px;
+
+    background:
+        rgba(255,248,220,.65);
+
+    border:
+
+        1px solid #92764d;
+
+    color: #392a19;
+
+    font-family: Georgia, serif;
+
+    outline: none;
+}
+
+.controles input {
+
+    flex: 1;
+
+    min-width: 230px;
+}
+
+.controles input:focus,
+.controles select:focus {
+
+    border-color: #4d3821;
+
+    box-shadow:
+        0 0 5px rgba(70,45,20,.2);
+}
+
+
+/* =========================================
+   BESTIÁRIO
+========================================= */
+
+.bestiario {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(245px, 1fr)
+        );
+
+    gap: 23px;
+}
+
+
+/* =========================================
+   CARTÃO
+========================================= */
+
+.criatura {
+
+    position: relative;
+
+    padding: 25px;
+
+    min-height: 190px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            rgba(255,248,220,.9),
+            rgba(228,211,171,.95)
+        );
+
+    border: 1px solid #92764d;
+
+    box-shadow:
+        3px 4px 9px rgba(50,30,10,.25);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+.criatura:nth-child(3n) {
+    transform: rotate(.6deg);
+}
+
+.criatura:nth-child(3n+1) {
+    transform: rotate(-.5deg);
+}
+
+.criatura:nth-child(3n+2) {
+    transform: rotate(.2deg);
+}
+
+.criatura:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(0deg);
+
+    box-shadow:
+        5px 9px 17px rgba(40,25,10,.3);
+}
+
+.criatura::before {
+
+    content: "✦";
+
+    position: absolute;
+
+    right: 12px;
+    top: 8px;
+
+    color: #79603d;
+}
+
+.numero {
+
+    font-size: 12px;
+
+    color: #806747;
+
+    margin-bottom: 8px;
+}
+
+.nome {
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.dado {
+
+    font-size: 14px;
+
+    color: #66543c;
+
+    margin: 5px 0;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(25,18,12,.82);
+
+    padding: 20px;
+
+    overflow-y: auto;
+}
+
+.modal.ativo {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+}
+
+.modal-conteudo {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 30px auto;
+
+    padding: 42px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(250,239,205,.98),
+            rgba(224,205,161,.98)
+        );
+
+    border: 1px solid #826640;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.55),
+        inset 0 0 45px rgba(100,70,30,.2);
+}
+
+.fechar {
+
+    position: absolute;
+
+    right: 18px;
+    top: 12px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #4b3823;
+
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.modal-titulo {
+
+    font-size: 42px;
+
+    margin:
+        0
+        45px
+        5px
+        0;
+
+    color: #352719;
+}
+
+.modal-subtitulo {
+
+    color: #766047;
+
+    font-style: italic;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   ESTATÍSTICAS
+========================================= */
+
+.estatisticas {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(140px,1fr)
+        );
+
+    gap: 10px;
+
+    margin: 25px 0;
+}
+
+.estatistica {
+
+    padding: 13px;
+
+    border: 1px solid #a2875c;
+
+    background:
+        rgba(255,248,220,.4);
+}
+
+.estatistica strong {
+
+    display: block;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    color: #79603d;
+}
+
+.estatistica span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   BIOGRAFIA
+========================================= */
+
+.botao-biografia {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 15px;
+
+    background:
+        rgba(112,84,49,.12);
+
+    border: 1px solid #806545;
+
+    color: #392a1a;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.botao-biografia:hover {
+
+    background:
+        rgba(112,84,49,.22);
+}
+
+.biografia-conteudo {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 22px;
+
+    border: 1px dashed #92764d;
+
+    background:
+        rgba(255,248,220,.35);
+}
+
+.biografia-conteudo.aberto {
+
+    display: block;
+
+    animation:
+        aparecer .3s ease;
+}
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-5px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================
+   SEÇÕES DA BIOGRAFIA
+========================================= */
+
+.secao {
+
+    margin-bottom: 25px;
+}
+
+.secao-titulo {
+
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    color: #735a38;
+
+    margin-bottom: 8px;
+
+    border-bottom:
+        1px solid rgba(120,90,50,.35);
+
+    padding-bottom: 5px;
+}
+
+.descricao {
+
+    line-height: 1.75;
+
+    text-align: justify;
+}
+
+.caracteristicas {
+
+    padding-left: 20px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   REGIÕES
+========================================= */
+
+.regioes {
+
+    padding: 16px;
+
+    border-left:
+        4px solid #765a37;
+
+    background:
+        rgba(100,75,40,.08);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   RODAPÉ
+========================================= */
+
+footer {
+
+    position: relative;
+
+    text-align: center;
+
+    margin-top: 50px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #92764d;
+
+    color: #806747;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media(max-width:600px) {
+
+    .pagina {
+
+        width: 96%;
+
+        padding:
+            25px
+            15px;
+
+        margin:
+            10px auto;
+    }
+
+    header h1 {
+
+        letter-spacing: 3px;
+    }
+
+    .modal {
+
+        padding: 10px;
+    }
+
+    .modal-conteudo {
+
+        padding:
+            28px
+            18px;
+
+        margin:
+            10px auto;
+    }
+
+    .modal-titulo {
+
+        font-size: 30px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="pagina">
+
+
+<header>
+
+<h1>Bestiário</h1>
+
+<div class="linha"></div>
+
+<p>
+Registros de criaturas conhecidas,
+desconhecidas e esquecidas.
+</p>
+
+</header>
+
+
+<div class="controles">
+
+<input
+    type="text"
+    id="pesquisa"
+    placeholder="Pesquisar criatura..."
+    oninput="filtrarCriaturas()"
+>
+
+<select
+    id="filtro"
+    onchange="filtrarCriaturas()"
+>
+
+<option value="todas">
+Todas as criaturas
+</option>
+
+<option value="conhecidas">
+Criaturas catalogadas
+</option>
+
+<option value="desconhecidas">
+Criaturas sem nome
+</option>
+
+</select>
+
+</div>
+
+
+<div
+    class="bestiario"
+    id="bestiario"
+></div>
+
+
+<footer>
+
+<p>
+"Nem tudo que possui olhos deseja ser observado."
+</p>
+
+</footer>
+
+</div>
+
+
+
+<!-- ======================================
+             MODAL
+====================================== -->
+
+<div
+    class="modal"
+    id="modal"
+    onclick="fecharFora(event)"
+>
+
+<div
+    class="modal-conteudo"
+    onclick="event.stopPropagation()"
+>
+
+<button
+    class="fechar"
+    onclick="fecharModal()"
+>
+×
+</button>
+
+
+<h2
+    class="modal-titulo"
+    id="modalNome"
+>
+</h2>
+
+
+<div
+    class="modal-subtitulo"
+    id="modalCategoria"
+>
+</div>
+
+
+<div
+    class="estatisticas"
+    id="modalEstatisticas"
+>
+</div>
+
+
+<button
+    class="botao-biografia"
+    onclick="alternarBiografia()"
+>
+📖 ABRIR REGISTRO COMPLETO
+</button>
+
+
+<div
+    class="biografia-conteudo"
+    id="biografia"
+>
+
+
+<div class="secao">
+
+<div class="secao-titulo">
+Descrição
+</div>
+
+<div
+    class="descricao"
+    id="modalDescricao"
+>
+</div>
+
+</div>
+
+
+<div class="secao">
+
+<div class="secao-titulo">
+Características marcantes
+</div>
+
+<ul
+    class="caracteristicas"
+    id="modalCaracteristicas"
+>
+</ul>
+
+</div>
+
+
+<div class="secao">
+
+<div class="secao-titulo">
+Comportamento
+</div>
+
+<div
+    id="modalComportamento"
+>
+</div>
+
+</div>
+
+
+<div class="secao">
+
+<div class="secao-titulo">
+Habitat
+</div>
+
+<div
+    id="modalHabitat"
+>
+</div>
+
+</div>
+
+
+<div class="secao">
+
+<div class="secao-titulo">
+Regiões onde a criatura é encontrada
+</div>
+
+<div
+    class="regioes"
+    id="modalRegioes"
+>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/*
+====================================================
+                    CRIATURAS
+====================================================
+*/
+
+
+const criaturas = [
+
+/* ==========================================
+              CRIATURA 001
+========================================== */
+
+{
+
+id: 1,
+
+nome: "Entidade de Tinta",
+
+categoria: "Aberração",
+
+nivel: "Desconhecido",
+
+vida: "Desconhecida",
+
+ataque: "Desconhecido",
+
+defesa: "Desconhecida",
+
+regioes:
+"Locais abandonados, bibliotecas antigas e construções onde existem registros escritos há muito tempo.",
+
+descricao:
+"Uma criatura de forma humanoide cuja superfície parece ser composta por uma substância escura semelhante a tinta. Seu corpo não apresenta uma anatomia completamente estável, e partes dele parecem escorrer lentamente mesmo quando a criatura permanece imóvel. Relatos antigos afirmam que ela surge principalmente em locais onde grandes quantidades de conhecimento foram esquecidas. Algumas testemunhas dizem ter encontrado páginas completamente preenchidas por símbolos desconhecidos depois de sua passagem.",
+
+caracteristicas: [
+
+"Corpo aparentemente formado por tinta negra.",
+
+"Os contornos da criatura parecem mudar constantemente.",
+
+"Pode deixar marcas escuras em superfícies por onde passa.",
+
+"Alguns registros afirmam que ela reage quando seu nome é escrito.",
+
+"Seus movimentos são silenciosos."
+
+],
+
+comportamento:
+"Extremamente observadora. Normalmente permanece imóvel durante longos períodos, como se estivesse estudando o ambiente. Não existem registros confiáveis suficientes para determinar se possui comportamento territorial ou agressivo.",
+
+habitat:
+"Construções antigas, arquivos abandonados, bibliotecas esquecidas e locais onde documentos antigos permanecem intocados."
+
+},
+
+
+/* ==========================================
+              CRIATURA 002
+========================================== */
+
+{
+
+id: 2,
+
+nome: "Fera dos Muitos Olhos",
+
+categoria: "Predador",
+
+nivel: "Alto",
+
+vida: "Desconhecida",
+
+ataque: "Desconhecido",
+
+defesa: "Alta",
+
+regioes:
+"Florestas profundas, cavernas e regiões onde a luz natural quase não alcança.",
+
+descricao:
+"Uma criatura quadrúpede de grande porte coberta por olhos de diferentes tamanhos. Alguns encontram-se espalhados pelo corpo de maneira aparentemente aleatória, enquanto outros ficam escondidos entre pelos escuros. A quantidade exata de olhos varia entre os relatos. Curiosamente, nenhum observador conseguiu afirmar com certeza qual deles é o principal.",
+
+caracteristicas: [
+
+"Grande quantidade de olhos espalhados pelo corpo.",
+
+"Excelente percepção do ambiente.",
+
+"Movimentos extremamente silenciosos.",
+
+"Consegue perceber movimentos mesmo em completa escuridão.",
+
+"Possui longos membros adaptados para perseguição."
+
+],
+
+comportamento:
+"Predatória e extremamente cautelosa. Costuma observar uma possível presa durante muito tempo antes de agir. Quando percebe que foi descoberta, geralmente desaparece entre a vegetação ou retorna para áreas escuras.",
+
+habitat:
+"Florestas antigas, cavernas profundas e regiões subterrâneas."
+
+},
+
+
+/* ==========================================
+              CRIATURA 003
+========================================== */
+
+{
+
+id: 3,
+
+nome: "Pesadelo Carmesim",
+
+categoria: "Entidade",
+
+nivel: "Muito alto",
+
+vida: "Desconhecida",
+
+ataque: "Desconhecido",
+
+defesa: "Desconhecida",
+
+regioes:
+"Regiões devastadas, campos abandonados e locais associados a acontecimentos violentos.",
+
+descricao:
+"Uma criatura envolta por uma presença avermelhada que parece permanecer constantemente ao redor de seu corpo. Sua silhueta lembra vagamente a de um ser humano, embora seus movimentos não sigam padrões naturais. O registro mais antigo sobre o Pesadelo Carmesim descreve uma criatura que apareceu no meio de uma área completamente deserta e desapareceu antes que qualquer tentativa de aproximação pudesse ser realizada.",
+
+caracteristicas: [
+
+"Presença avermelhada ao redor do corpo.",
+
+"Silhueta semelhante à humana.",
+
+"Movimentos imprevisíveis.",
+
+"Pode permanecer imóvel durante horas.",
+
+"Costuma ser associada a locais onde ocorreram acontecimentos graves."
+
+],
+
+comportamento:
+"Pouco compreendido. Algumas testemunhas descrevem uma criatura agressiva, enquanto outras afirmam que ela simplesmente observa aqueles que entram em seu território.",
+
+habitat:
+"Locais abandonados, campos devastados e regiões marcadas por acontecimentos antigos."
+
+},
+
+
+/* ==========================================
+              CRIATURA 004
+========================================== */
+
+{
+
+id: 4,
+
+nome: "Serpente das Sombras",
+
+categoria: "Predador",
+
+nivel: "Moderado",
+
+vida: "Desconhecida",
+
+ataque: "Alto",
+
+defesa: "Moderada",
+
+regioes:
+"Florestas, ruínas, cavernas e regiões onde grandes sombras permanecem durante boa parte do dia.",
+
+descricao:
+"Uma serpente longa e extremamente escura que parece perder parte de sua forma quando permanece dentro de uma sombra. Seus olhos possuem um brilho fraco e constante, sendo geralmente a primeira coisa percebida por exploradores que encontram a criatura.",
+
+caracteristicas: [
+
+"Corpo extremamente escuro.",
+
+"Pode se esconder em áreas de sombra.",
+
+"Olhos com brilho fraco.",
+
+"Movimentos rápidos e silenciosos.",
+
+"Possui grande capacidade de camuflagem."
+
+],
+
+comportamento:
+"Evita confrontos desnecessários. Normalmente permanece escondida até que uma criatura entre em seu território. Quando ameaçada, torna-se extremamente agressiva.",
+
+habitat:
+"Florestas densas, cavernas, ruínas e regiões pouco iluminadas."
+
+},
+
+
+/* ==========================================
+              CRIATURA 005
+========================================== */
+
+{
+
+id: 5,
+
+nome: "Cervo Retorcido",
+
+categoria: "Criatura Anômala",
+
+nivel: "Desconhecido",
+
+vida: "Alta",
+
+ataque: "Moderado",
+
+defesa: "Alta",
+
+regioes:
+"Florestas antigas e campos onde árvores cresceram de maneira anormal.",
+
+descricao:
+"Apesar de possuir a aparência geral de um cervo, sua anatomia apresenta alterações que não correspondem a nenhum animal conhecido. Seus chifres parecem crescer em direções diferentes a cada ciclo, formando estruturas semelhantes a galhos retorcidos. Alguns relatos descrevem a criatura parada no meio de clareiras durante a madrugada, observando silenciosamente aqueles que passam.",
+
+caracteristicas: [
+
+"Chifres extremamente retorcidos.",
+
+"Grande porte.",
+
+"Olhos muito claros.",
+
+"Movimentos silenciosos.",
+
+"Pode permanecer completamente imóvel por longos períodos."
+
+],
+
+comportamento:
+"Normalmente evita contato direto. Demonstra comportamento territorial quando alguém se aproxima demais de determinadas áreas da floresta.",
+
+habitat:
+"Florestas antigas, clareiras isoladas e regiões dominadas por árvores de grande porte."
+
+}
+
+];
+
+
+
+/*
+====================================================
+     CRIATURAS DESCONHECIDAS 006 - 120
+====================================================
+*/
+
+const desconhecidas = [
+
+{
+nome: "O Homem Sem Rosto",
+descricao:
+"Uma figura humanoide encontrada ocasionalmente em estradas abandonadas. Possui corpo semelhante ao humano, porém nenhuma característica facial pode ser identificada.",
+caracteristicas: [
+"Ausência completa de rosto.",
+"Altura aparentemente variável.",
+"Não deixa pegadas.",
+"Permanece observando viajantes à distância."
+],
+comportamento:
+"Não demonstra agressividade imediata, mas também nunca responde quando abordado.",
+habitat:
+"Estradas antigas e vilarejos abandonados.",
+regioes:
+"Regiões rurais e caminhos esquecidos."
+},
+
+{
+nome: "A Dama do Lago",
+descricao:
+"Uma figura extremamente pálida que aparece sobre superfícies de água durante noites silenciosas. Não existem registros claros sobre sua verdadeira aparência.",
+caracteristicas: [
+"Longos cabelos escuros.",
+"Olhos quase completamente brancos.",
+"Não produz ondas ao caminhar sobre a água.",
+"Sua presença costuma ser acompanhada por uma queda repentina de temperatura."
+],
+comportamento:
+"Permanece próxima da água e raramente se aproxima de pessoas.",
+habitat:
+"Lagos profundos.",
+regioes:
+"Florestas próximas a grandes lagos."
+},
+
+{
+nome: "O Cão de Cinzas",
+descricao:
+"Uma criatura semelhante a um grande cão coberto por uma camada constante de cinzas. Sua origem permanece desconhecida.",
+caracteristicas: [
+"Pelagem semelhante a carvão queimado.",
+"Olhos alaranjados.",
+"Deixa pequenas marcas de cinza no solo.",
+"Possui resistência excepcional ao calor."
+],
+comportamento:
+"Territorial e desconfiado.",
+habitat:
+"Regiões vulcânicas e áreas queimadas.",
+regioes:
+"Montanhas e campos devastados."
+},
+
+{
+nome: "A Aranha de Vidro",
+descricao:
+"Aracnídeo quase transparente que se torna visível apenas quando a luz atinge diretamente seu corpo.",
+caracteristicas: [
+"Corpo translúcido.",
+"Pernas extremamente finas.",
+"Teias quase invisíveis.",
+"Excelente capacidade de camuflagem."
+],
+comportamento:
+"Permanece imóvel aguardando presas.",
+habitat:
+"Cavernas e estruturas abandonadas.",
+regioes:
+"Regiões subterrâneas."
+},
+
+{
+nome: "O Corvo Branco",
+descricao:
+"Uma ave de plumagem completamente branca encontrada em locais onde grandes acontecimentos ocorreram.",
+caracteristicas: [
+"Plumagem branca.",
+"Olhos escuros.",
+"Não costuma emitir sons.",
+"Frequentemente aparece antes de acontecimentos inexplicáveis."
+],
+comportamento:
+"Observador e extremamente difícil de capturar.",
+habitat:
+"Ruínas e campos abandonados.",
+regioes:
+"Locais antigos."
+}
+
+];
+
+
+/*
+====================================================
+   COMPLETAR ATÉ 120 CRIATURAS
+====================================================
+*/
+
+while (
+    criaturas.length +
+    desconhecidas.length < 120
+) {
+
+    const numero =
+        criaturas.length +
+        desconhecidas.length +
+        1;
+
+    desconhecidas.push({
+
+        nome:
+            `Criatura Desconhecida #${String(numero).padStart(3,"0")}`,
+
+        descricao:
+            "Este registro encontra-se incompleto. A criatura foi observada apenas brevemente e nenhuma expedição conseguiu reunir informações suficientes para estabelecer sua origem, comportamento ou verdadeira natureza. Algumas páginas do registro original foram perdidas.",
+
+        caracteristicas: [
+
+            "Características ainda não catalogadas.",
+
+            "Comportamento desconhecido.",
+
+            "Aparência registrada apenas parcialmente.",
+
+            "Nenhuma classificação definitiva foi estabelecida."
+
+        ],
+
+        comportamento:
+            "Desconhecido. Os poucos relatos existentes são contraditórios.",
+
+        habitat:
+            "Não identificado.",
+
+        regioes:
+            "Localização desconhecida."
+
+    });
+
+}
+
+
+/*
+====================================================
+       TRANSFORMAR DESCONHECIDAS EM REGISTROS
+====================================================
+*/
+
+desconhecidas.forEach((criatura, index) => {
+
+    criaturas.push({
+
+        id:
+            index + 6,
+
+        nome:
+            criatura.nome,
+
+        categoria:
+            "Não classificada",
+
+        nivel:
+            "Desconhecido",
+
+        vida:
+            "Desconhecida",
+
+        ataque:
+            "Desconhecido",
+
+        defesa:
+            "Desconhecida",
+
+        regioes:
+            criatura.regioes,
+
+        descricao:
+            criatura.descricao,
+
+        caracteristicas:
+            criatura.caracteristicas,
+
+        comportamento:
+            criatura.comportamento,
+
+        habitat:
+            criatura.habitat
+
+    });
+
+});
+
+
+/*
+====================================================
+                  RENDERIZAR
+====================================================
+*/
+
+function renderizarCriaturas(lista = criaturas) {
+
+    const container =
+        document.getElementById("bestiario");
+
+    container.innerHTML = "";
+
+
+    lista.forEach(criatura => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "criatura";
+
+        card.onclick =
+            () => abrirModal(criatura.id);
+
+
+        card.innerHTML = `
+
+            <div class="numero">
+
+                Registro #
+
+                ${String(criatura.id)
+                    .padStart(3,"0")}
+
+            </div>
+
+
+            <div class="nome">
+
+                ${criatura.nome}
+
+            </div>
+
+
+            <div class="dado">
+
+                Categoria:
+
+                ${criatura.categoria}
+
+            </div>
+
+
+            <div class="dado">
+
+                Nível:
+
+                ${criatura.nivel}
+
+            </div>
+
+
+            <div class="dado">
+
+                Região:
+
+                ${criatura.regioes}
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/*
+====================================================
+                    MODAL
+====================================================
+*/
+
+function abrirModal(id) {
+
+    const criatura =
+        criaturas.find(
+            c => c.id === id
+        );
+
+
+    if (!criatura) return;
+
+
+    document
+        .getElementById("modalNome")
+        .textContent =
+        criatura.nome;
+
+
+    document
+        .getElementById("modalCategoria")
+        .textContent =
+        `Categoria: ${criatura.categoria}`;
+
+
+    document
+        .getElementById("modalEstatisticas")
+        .innerHTML = `
+
+        <div class="estatistica">
+
+            <strong>Nível</strong>
+
+            <span>
+                ${criatura.nivel}
+            </span>
+
+        </div>
+
+
+        <div class="estatistica">
+
+            <strong>Vida</strong>
+
+            <span>
+                ${criatura.vida}
+            </span>
+
+        </div>
+
+
+        <div class="estatistica">
+
+            <strong>Ataque</strong>
+
+            <span>
+                ${criatura.ataque}
+            </span>
+
+        </div>
+
+
+        <div class="estatistica">
+
+            <strong>Defesa</strong>
+
+            <span>
+                ${criatura.defesa}
+            </span>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById("modalDescricao")
+        .textContent =
+        criatura.descricao;
+
+
+    document
+        .getElementById("modalComportamento")
+        .textContent =
+        criatura.comportamento;
+
+
+    document
+        .getElementById("modalHabitat")
+        .textContent =
+        criatura.habitat;
+
+
+    document
+        .getElementById("modalRegioes")
+        .textContent =
+        criatura.regioes;
+
+
+    const lista =
+        document
+        .getElementById("modalCaracteristicas");
+
+
+    lista.innerHTML = "";
+
+
+    criatura.caracteristicas
+        .forEach(item => {
+
+            const li =
+                document.createElement("li");
+
+            li.textContent =
+                item;
+
+            lista.appendChild(li);
+
+        });
+
+
+    document
+        .getElementById("biografia")
+        .classList.remove("aberto");
+
+
+    document
+        .getElementById("modal")
+        .classList.add("ativo");
+
+}
+
+
+/*
+====================================================
+              ABRIR BIOGRAFIA
+====================================================
+*/
+
+function alternarBiografia() {
+
+    document
+        .getElementById("biografia")
+        .classList.toggle("aberto");
+
+}
+
+
+/*
+====================================================
+                 FECHAR MODAL
+====================================================
+*/
+
+function fecharModal() {
+
+    document
+        .getElementById("modal")
+        .classList.remove("ativo");
+
+}
+
+
+function fecharFora(event) {
+
+    if (
+        event.target.id === "modal"
+    ) {
+
+        fecharModal();
+
+    }
+
+}
+
+
+/*
+====================================================
+                    PESQUISA
+====================================================
+*/
+
+function filtrarCriaturas() {
+
+    const pesquisa =
+        document
+        .getElementById("pesquisa")
+        .value
+        .toLowerCase();
+
+
+    const filtro =
+        document
+        .getElementById("filtro")
+        .value;
+
+
+    const resultado =
+        criaturas.filter(criatura => {
+
+            const nome =
+                criatura.nome
+                .toLowerCase();
+
+
+            const encontrou =
+                nome.includes(pesquisa);
+
+
+            const conhecida =
+                criatura.id <= 5;
+
+
+            const correspondeFiltro =
+
+                filtro === "todas"
+
+                ||
+
+                (
+                    filtro === "conhecidas"
+                    &&
+                    conhecida
+                )
+
+                ||
+
+                (
+                    filtro === "desconhecidas"
+                    &&
+                    !conhecida
+                );
+
+
+            return
+                encontrou &&
+                correspondeFiltro;
+
+        });
+
+
+    renderizarCriaturas(resultado);
+
+}
+
+
+/*
+====================================================
+                    ESC
+====================================================
+*/
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            fecharModal();
+
+        }
+
+    }
+);
+
+
+/*
+====================================================
+                  INICIAR
+====================================================
+*/
+
+renderizarCriaturas();
+
+</script>
+
+</body>
+</html>
